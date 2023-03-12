@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&family=Roboto+Condensed&family=Roboto:wght@300&display=swap');
+
+/* Global Variables */
+:root {
+  --background-color-1: rgba(240, 240, 240, 1);
+  --text-color: rgba(57, 57, 57, 1);
+  --header-color: rgba(57, 57, 57, 1);
+  --display-background-color: rgba(210, 210, 210, 1);
+  --border-color: rgba(50, 50, 50, 1);
+  --font-size-data-header: 4rem;
+  --font-size-text: 1rem;
+  --font-size-description: 1.5rem;
+  --font-size-header: 2.5rem;
+}
+
+/* Boilerplate */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--background-color-1);
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* All boilerplate */
+
+a {
+  color: blue;
+  text-decoration: none;
+  transition: color 0.2s ease-out;
+}
+
+a:hover {
+  color: orange;
+}
+
+.font1 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font2 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+@keyframes fade-up {
+  0% {
+    transform: translateY(2rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

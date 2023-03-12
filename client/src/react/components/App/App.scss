@@ -1,0 +1,23 @@
+.app {
+  display: flex;
+  width: 100%;
+
+  flex-flow: column;
+}
+.page {
+  background: var(--background-color-1);
+  display: block;
+}
+
+.info {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+.info-icon {
+  width: 200px;
+}
+.info-header {
+  font-weight: normal;
+  font-size: var(--font-size-header);
+}

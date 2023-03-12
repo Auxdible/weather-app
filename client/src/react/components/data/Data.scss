@@ -1,0 +1,44 @@
+.icon {
+  font-size: 150px;
+  display: block;
+  margin: 3rem auto;
+}
+
+.loading-icon {
+  animation: spin 3s ease-out infinite;
+}
+
+.main {
+  max-width: 400px;
+  padding: 2rem 2rem;
+  border-radius: 20px;
+  border: var(--border-color) 4px solid;
+  box-shadow: var(--border-color) 2px 2px 2px;
+  margin: 2rem auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  background-color: var(--display-background-color);
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  flex-flow: column;
+  animation: fade-up ease-out 0.5s 1;
+  float: bottom;
+}
+.status-header, .data-subheader {
+  font-weight: normal;
+  font-size: var(--font-size-header);
+}
+.status-description {
+  font-size: var(--font-size-description);
+}
+.data-header {
+  font-size: var(--font-size-data-header);
+}
+.welcome-header, .welcome-description {
+  text-align: center;
+}
