@@ -5,10 +5,10 @@ import axios from "axios";
 import Error from "@backend/Error";
 import React from "react";
 import './Requests.scss'
+import {getTotalRequests} from "../../../api";
 export function Requests() {
-    let query = useQuery('requests', () => axios.get("weather/api/requests").then((res) => {
-        return res.data;
-    }));
+    let query = useQuery('requests', () => getTotalRequests().then((res) => res.data));
+
     let requestData: Error | {
         total_requests: number
     } = query.isError ? {

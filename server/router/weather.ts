@@ -41,7 +41,6 @@ weatherRouter.get('/api/current', (req : express.Request, res : express.Response
                 } : defaultCoords;
     // geolocate location data. get if coordinates exist.
     geolocateLocationData(val).then((coordinates) => {
-        console.log(coordinates);
         if (coordinates) {
             axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${process.env.WEATHER_API_KEY}&units=imperial`)
                 .then((weatherRes) => {

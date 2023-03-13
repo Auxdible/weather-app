@@ -25,7 +25,7 @@ export function WeatherData() {
                 <h1 className={"no-margin font1 status-header data-header"}>{Math.round(data.data.temp)}°F</h1>
                 <p className="no-margin font2 status-subheader data-subheader">{data.data.condition.main}</p>
                 <p className="font2 status-description data-description">
-                    {data.data.city}, {data.data.state ? data.data.state : data.data.country}<br/>
+                    {data.data.city ? data.data.city : "Ocean"}, {data.data.state ? data.data.state : data.data.country}<br/>
                     Feels like {Math.round(data.data.feels_like)}°F<br/>
                     Humidity: {data.data.humidity}%<br/>
                     Wind: {data.data.wind.speed} mph, {data.data.wind.deg}°<br/>

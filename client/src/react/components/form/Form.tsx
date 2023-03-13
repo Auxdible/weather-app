@@ -14,6 +14,7 @@ import './Form.scss'
 import {
     useQueryClient
 } from "react-query";
+import {currentWeather} from "../../../api";
 
 
 function Form() {
@@ -27,22 +28,12 @@ function Form() {
     } = useContext(AppContext);
 
     function sendData(location: CoordinatesInput | CityState | PostalCode) {
-        axios.get(`/weather/api/current?${location.type == "coordinates" ? `latitude=${location.latitude}&longitude=${location.longitude}` :
-            location.type == "postal_code" ? `postalcode=${location.postalCode}` :
-                location.type == "city_state" ? `city=${location.city}&state=${location.state}` : ""}`)
-            .then((res) => {
+        currentWeather(location).then((res) => {
                 setData(res.data as ResponseData | Error);
             }).catch((err) => {
-            if (err.response.status == 429) {
                 setData({
-                    error: err.response.data.error
+                    error: err.response.status == 429 ? err.response.data.error : "An error occurred trying to find the weather data. (Is this location valid?)"
                 })
-            } else {
-                setData({
-                    error: "Could not find data."
-                })
-            }
-
         });
         setData({
             loading: true
@@ -68,14 +59,15 @@ function Form() {
                         error: "Error getting geolocation data!"
                     })
                 })
+            setData({
+                loading: true
+            } as ResponseData);
         } else {
             setData({
                 error: "You do not have geolocation enabled!"
             });
         }
-        setData({
-            loading: true
-        } as ResponseData);
+
     }
 
     function handleChange(e: React.FormEvent < HTMLInputElement > ) {
