@@ -1,12 +1,21 @@
-import {useContext} from "react";
+import {
+    useContext
+} from "react";
 import AppContext from "../../context/AppContext";
 import Error from '@backend/Error';
 import ResponseData from "../../../types/ResponseData";
-import { BiErrorCircle, BiLoaderCircle } from 'react-icons/bi';
+import {
+    BiErrorCircle,
+    BiLoaderCircle
+} from 'react-icons/bi';
 import './Data.scss'
 import WeatherIcon from "../../../util/WeatherIcon";
 export function WeatherData() {
-    const { data } = useContext(AppContext) as { data: ResponseData };
+    const {
+        data
+    } = useContext(AppContext) as {
+        data: ResponseData
+    };
     const DataIcon = data.data && !data.loading ? WeatherIcon.filter((i) => i.id == data.data.condition.icon_id)[0].icon : undefined;
 
     return !data.loading ? (
@@ -32,11 +41,15 @@ export function WeatherData() {
     </div>);
 }
 export function ErrorData() {
-    const { data } = useContext(AppContext) as { data: Error };
+    const {
+        data
+    } = useContext(AppContext) as {
+        data: Error
+    };
     return (<div className="main error">
         <BiErrorCircle className="icon error-icon" />
         <div className="status">
-            <h1 className="font1 status-header error-header">Sorry! We encountered an error.</h1>
+            <h1 className="no-margin font1 status-header error-header">Sorry! We encountered an error.</h1>
             <p className="font2 status-description error-description">Error: { data.error }</p>
         </div>
     </div>)
@@ -45,8 +58,8 @@ export default function Welcome() {
     return (
         <div className="main welcome">
             <div className="status">
-                <img src="./logo192.png" className="icon welcome-icon" />
-                <h1 className=" font1 status-header welcome-header">Welcome to Auxdible's Weather App!</h1>
+                <img src="./logo192.png" className="icon welcome-icon" alt="weather icon" />
+                <h1 className="no-margin font1 status-header welcome-header">Welcome to Auxdible's Weather App!</h1>
                 <p className="font2 status-description welcome-description">Enter your ZIP code, Latitude & Longitude, or City here.</p>
             </div>
         </div>

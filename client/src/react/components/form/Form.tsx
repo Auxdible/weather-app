@@ -1,18 +1,22 @@
 import React, {
     useContext
 } from "react";
-import AppContext, {
-} from "../../context/AppContext";
-import {CoordinatesInput, CityState, PostalCode} from "@backend/LocationType";
+import AppContext, {} from "../../context/AppContext";
+import {
+    CoordinatesInput,
+    CityState,
+    PostalCode
+} from "@backend/LocationType";
 import axios from "axios";
 import ResponseData from "../../../types/ResponseData";
 import Error from "@backend/Error";
 import './Form.scss'
-import {useQueryClient} from "react-query";
+import {
+    useQueryClient
+} from "react-query";
 
 
 function Form() {
-    const queryClient = useQueryClient();
     const {
         input,
         setInput,
@@ -21,33 +25,28 @@ function Form() {
         inputType,
         setInputType
     } = useContext(AppContext);
+
     function sendData(location: CoordinatesInput | CityState | PostalCode) {
-        axios.get(`/weather/api/requests?useMyIp=true&from=${Date.now().valueOf() - 60000}`).then((data) => {
-
-            if ('total_requests' in data.data && (data.data['total_requests'] as number) < 5) {
-                axios.get(`/weather/api/current?${location.type == "coordinates" ? `latitude=${location.latitude}&longitude=${location.longitude}` :
-                    location.type == "postal_code" ? `postalcode=${location.postalCode}` :
-                        location.type == "city_state" ? `city=${location.city}&state=${location.state}` : ""}`)
-                    .then((res) => {
-                        setData(res.data as ResponseData | Error);
-                        queryClient.invalidateQueries('requests');
-                    }).catch((err) => {
-                    setData({
-                        error: "Could not find data."
-                    })
-                });
+        axios.get(`/weather/api/current?${location.type == "coordinates" ? `latitude=${location.latitude}&longitude=${location.longitude}` :
+            location.type == "postal_code" ? `postalcode=${location.postalCode}` :
+                location.type == "city_state" ? `city=${location.city}&state=${location.state}` : ""}`)
+            .then((res) => {
+                setData(res.data as ResponseData | Error);
+            }).catch((err) => {
+            if (err.response.status == 429) {
                 setData({
-                    loading: true
-                } as ResponseData);
-
+                    error: err.response.data.error
+                })
             } else {
                 setData({
-                    error: "Calm down there! You're sending too many requests (Maximum: 5 every 60 seconds.)"
-                });
+                    error: "Could not find data."
+                })
             }
-        })
 
-
+        });
+        setData({
+            loading: true
+        } as ResponseData);
     }
 
     function changeInput() {
@@ -55,7 +54,7 @@ function Form() {
         getDefaultInput()
     }
 
-    function useMyLocation(e: React.FormEvent < HTMLButtonElement > ) {
+    function useMyLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((data) => {
                     sendData({
@@ -64,7 +63,7 @@ function Form() {
                         longitude: data.coords.longitude + ""
                     })
                 },
-                (err) => {
+                () => {
                     setData({
                         error: "Error getting geolocation data!"
                     })
@@ -106,12 +105,12 @@ function Form() {
         }
     }
 
-    function handleSubmit(e: React.FormEvent < HTMLButtonElement > ) {
+    function handleSubmit() {
         sendData(input ? input.location : {
             type: "coordinates",
             longitude: "0",
             latitude: "0"
-        } );
+        });
         getDefaultInput();
     }
 

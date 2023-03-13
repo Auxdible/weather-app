@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import weatherRouter from "./router/weather";
-import path from "path";
 import mongoose from "mongoose";
+import rateLimit from 'express-rate-limit';
 
 // dotenv
 dotenv.config();
@@ -12,6 +12,17 @@ const app: express.Express = express();
 const port = process.env.PORT || 5000;
 
 // middleware
+
+let apiLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 3,
+    handler: ((req, res) => res.status(429).json({
+        error: "Maximum API request limit exceeded",
+    }))
+});
+
+app.use('/weather/api/current', apiLimiter);
+
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/weather', weatherRouter);
