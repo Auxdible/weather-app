@@ -28,7 +28,7 @@ function Form() {
                 setData(res.data as ResponseData | Error);
             }).catch((err) => {
                 setData({
-                    error: err.response.status == 429 ? err.response.data.error : "An error occurred trying to find the weather data. (Is this location valid?)"
+                    error: err.response.status === 429 ? err.response.data.error : "An error occurred trying to find the weather data. (Is this location valid?)"
                 })
         });
         setData({
