@@ -16,7 +16,7 @@ export function WeatherData() {
     } = useContext(AppContext) as {
         data: ResponseData
     };
-    const DataIcon = data.data && !data.loading ? WeatherIcon.filter((i) => i.id == data.data.condition.icon_id)[0].icon : undefined;
+    const DataIcon = data.data && !data.loading ? WeatherIcon.filter((i) => i.id === data.data.condition.icon_id)[0].icon : undefined;
 
     return !data.loading ? (
         <div className="main weather-data">

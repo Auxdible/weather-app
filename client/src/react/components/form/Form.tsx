@@ -7,13 +7,9 @@ import {
     CityState,
     PostalCode
 } from "@backend/LocationType";
-import axios from "axios";
 import ResponseData from "../../../types/ResponseData";
 import Error from "@backend/Error";
 import './Form.scss'
-import {
-    useQueryClient
-} from "react-query";
 import {currentWeather} from "../../../api";
 
 
