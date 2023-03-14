@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import weatherRouter from "./router/weather";
 import mongoose from "mongoose";
 import rateLimit from 'express-rate-limit';
-
+import path from "path";
+import indexRouter from "./router";
 // dotenv
 dotenv.config();
 
@@ -12,6 +13,14 @@ const app: express.Express = express();
 const port = process.env.PORT || 5000;
 
 // middleware
+
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+
+
+app.use('/weather', weatherRouter);
+
+app.use('/', indexRouter);
 
 let apiLimiter = rateLimit({
     windowMs: 60 * 1000,
@@ -25,7 +34,9 @@ app.use('/weather/api/current', apiLimiter);
 
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/weather', weatherRouter);
+
+
+
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -49,6 +60,8 @@ if (process.env.MONGO_URI) {
 } else {
     console.log("Mongo URI not provided, not connecting to MongoDB");
 }
+
+
 
 export default app;
 
