@@ -61,6 +61,7 @@ function App() {
                         <p className="font2 info-licenses info-text">Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</p>
                         <p className="font2 info-licenses info-text">Weather data provided by <a href="https://openweathermap.org/">OpenWeatherMap</a></p>
                         <h1 className="font1 info-header">Visit my website at <a href="https://auxdible.me">auxdible.me</a></h1>
+                        <h1 className="font2 info-header">Check out the <a href="https://github.com/Auxdible/weather-app">source code</a>!</h1>
                     </div>
                     <Requests />
                 </div>
