@@ -13,14 +13,13 @@ const app: express.Express = express();
 const port = process.env.PORT || 5000;
 
 // middleware
-
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-
+if (process.env.ENVIRONMENT == "DEVELOPMENT") {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+    app.use(indexRouter);
+    console.log('Serving front-end files in development environment!');
+}
 
 app.use('/weather', weatherRouter);
-
-app.use('/', indexRouter);
 
 let apiLimiter = rateLimit({
     windowMs: 60 * 1000,
